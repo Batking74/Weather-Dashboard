@@ -1,0 +1,17 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+/* Header */
+header {
+    background: linear-gradient(90deg, #396798, #0f0f5d);
+    text-align: center;
+    padding: 13px 0 13px 0;
+}
+
+header h1 {
+    margin: 0 0 10px 30vw;
+    font-family:sans-serif;
+    color: #fff;
+}

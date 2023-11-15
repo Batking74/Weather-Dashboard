@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Weather Dashboard">
+    <link rel="stylesheet" href="./Assets/style.css">
+    <title>Weather Dashboard</title>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <h1>Weather Dashboard</h1>
+    </header>
+
+    <!-- Main -->
+    <main>
+        <!-- Search Section -->
+        <section>
+            <h2>Search for a City:</h2>
+            <input type="text" name="state" id="search">
+            <button id="search-btn">Search</button>
+            <hr>
+            <button>Atlanta</button>
+            <button>Denver</button>
+            <button>Seattle</button>
+            <button>San Francisco</button>
+            <button>Orlando</button>
+            <button>New York</button>
+            <button>Chicago</button>
+            <button>Austin</button>
+        </section>
+
+        <!-- Dashboard Section -->
+        <section>
+            <div>
+                <h2 id="city-name"></h2>
+                <p id="temp"></p>
+                <p id="wind"></p>
+                <p id="humidity"></p>
+            </div>
+            <h3>5-Day-Forecast:</h3>
+            <div></div>
+        </section>
+    </main>
+    <script src="./Assets/script.js"></script>
+</body>
+</html>

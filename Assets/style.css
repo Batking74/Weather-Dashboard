@@ -3,15 +3,170 @@
     padding: 0;
 }
 
+body {
+    font-family: sans-serif;
+}
+
+:root {
+    --search-element-width: 280px;
+    --current-weather-container-margin: 10px;
+    --dashboard-container-width: 65vw;
+}
+
 /* Header */
 header {
-    background: linear-gradient(90deg, #396798, #0f0f5d);
+    background: linear-gradient(90deg, #3876b8, #0f0f5d);
     text-align: center;
-    padding: 13px 0 13px 0;
+    padding: 11px 0 11px 0;
 }
 
 header h1 {
     margin: 0 0 10px 30vw;
-    font-family:sans-serif;
     color: #fff;
+}
+
+/* Main */
+main {
+    display: grid;
+    margin-top: 18px;
+    grid-template-columns: repeat(2, 310px);
+}
+
+/* Search Section */
+.search-container h1 {
+    font-size: 30px;
+    margin-left: 10px;
+}
+
+button, input, hr {
+    display: block;
+    margin: 13px 0 0 5px;
+    width: var(--search-element-width);
+}
+
+button, input {
+    padding: 8px 0px 8px 0px;
+    border-radius: 5px;
+}
+
+input {
+    width: calc(var(--search-element-width) - 10px);
+    font-size: 18px;
+    padding-left: 10px;
+}
+
+button {
+    background: darkgray;
+    border: none;
+    transition: 1s;
+}
+
+button:hover {
+    background: #737373;
+    cursor: pointer;
+}
+
+#search-btn {
+    background: #5494d8;
+    color: #fff;
+}
+
+#search-btn:hover {
+    background: #3c6b9d;
+}
+
+/* Dashboard Section */
+.dashboard-container {
+    width: var(--dashboard-container-width);
+}
+
+.dashboard-container h2 {
+    margin: 20px 0 0 0;
+}
+
+.current-weather-container {
+    border: solid #000 2px;
+    height: 170px;
+}
+
+.current-weather-container p, .current-weather-container h2, #forecast-container {
+    margin: var(--current-weather-container-margin) 0 0 3px;
+}
+
+.current-weather-container p {
+    margin: calc(var(--current-weather-container-margin) + 5px) 0 0 3px;
+}
+
+/* Dashboard Forecast */
+#forecast-container {
+    display: flex;
+    column-gap: 2vw;
+}
+
+#forecast-container div {
+    background: #2f3c4c;
+    height: 170px;
+    padding: 10px 20px 10px 5px;
+    color: #fff;
+}
+
+#forecast-container div h3, #forecast-container div p {
+    width: 130px;
+    margin-bottom: 20px;
+}
+
+/* Responsive Web Design */
+@media screen and (max-width: 1200px) {
+    /* Dashboard Forecast */
+    #forecast-container {
+        display: grid;
+        grid-template: repeat(2, 200px) / repeat(3, 160px);
+    }
+}
+
+@media screen and (max-width: 950px) {
+    /* Dashboard Section */
+    .dashboard-container {
+        width: calc(var(--dashboard-container-width) - 10vw);
+    }
+}
+
+@media screen and (max-width: 850px) {
+    /* Dashboard Forecast */
+    #forecast-container {
+        grid-template: repeat(3, 200px) / repeat(2, 160px);
+    }
+}
+
+@media screen and (max-width: 750px) {
+    /* Dashboard Section */
+    .dashboard-container {
+        width: calc(var(--dashboard-container-width) - 20vw);
+    }
+}
+
+@media screen and (max-width: 680px) {
+    /* Header */
+    header h1 {
+        margin: 0;
+    }
+
+    /* Main */
+    main {
+        grid-template: repeat(3, 400px) / repeat(1, 310px);
+        justify-content: center;
+    }
+
+    /* Dashboard Section */
+    .dashboard-container {
+        text-align: center;
+        width: var(--dashboard-container-width) - 10vw;
+    }
+
+    /* Dashboard Forecast */
+    #forecast-container {
+        grid-template: repeat(5, 200px) / repeat(1, 160px);
+        margin-left: 17vw;
+        row-gap: 5vw;
+    }
 }

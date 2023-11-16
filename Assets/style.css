@@ -141,7 +141,7 @@ button:hover {
 @media screen and (max-width: 750px) {
     /* Dashboard Section */
     .dashboard-container {
-        width: calc(var(--dashboard-container-width) - 20vw);
+        width: calc(var(--dashboard-container-width) - 10vw);
     }
 }
 
@@ -153,7 +153,7 @@ button:hover {
 
     /* Main */
     main {
-        grid-template: repeat(3, 400px) / repeat(1, 310px);
+        grid-template: repeat(3, 500px) / repeat(1, 310px);
         justify-content: center;
     }
 

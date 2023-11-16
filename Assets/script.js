@@ -8,7 +8,7 @@ const searchBtn = document.getElementById('search-btn');
 const cityName = document.getElementById('city-name');
 const buttons = document.getElementsByTagName('button');
 const searchContainer = document.querySelector('.search-container');
-const forecastContainer = document.getElementsByTagName('div');
+const forecastContainer = document.getElementById('forecast-container');
 let search;
 
 const options = {
@@ -18,21 +18,18 @@ const options = {
 }
 
 // Display search history
-for(let i = 0; i < localStorage.length; i++) {
-    if(localStorage.key(i) != null && localStorage.key(i) != undefined) {
-        const btn = document.createElement('button');
+if(localStorage.length != 0) {
+    for(let i = 0; i < localStorage.length; i++) {
+        if(localStorage.key(i) != null && localStorage.key(i) != undefined) {
+            const btn = document.createElement('button');
             btn.textContent = localStorage.key(i);
             searchContainer.append(btn);
+        }
     }
+    addButtonEventListeners();
 }
+else addButtonEventListeners();
 
-if(forecastContainer.item(0).textContent === '') {
-    forecastContainer
-}
-
-addButtonEventListeners();
-
-// searchBtn.addEventListener('click', displayForecast);
 
 // Retreiving the searched states latitude and longitude
 async function displayForecast(e) {
@@ -58,20 +55,17 @@ async function getWeather(lat, lon) {
         const date = new Date(data.list[0].dt_txt);
         const daysToCome = getNextFiveDays(date, data);
         cityName.textContent = `${data.city.name} (${date.toLocaleString('en-US', options)})`;
+        forecastContainer.textContent = '';
         for(let i = 0; i < daysToCome.length; i++) {
             const futureDate = new Date(daysToCome[i].dt_txt);
-            const h3 = document.createElement('h3');
-            const temp = document.createElement('p');
-            const wind = document.createElement('p');
-            const humidity = document.createElement('p');
-            h3.textContent = futureDate.toLocaleString('en-US', options);
-            temp.textContent = `Temp: ${daysToCome[i].main.temp} F`;
-            wind.textContent = `Wind: ${daysToCome[i].wind.speed} MPH`;
-            humidity.textContent = `Humidity: ${daysToCome[i].main.humidity}%`;
-            forecastContainer[i + 2].append(h3);
-            forecastContainer[i + 2].append(temp);
-            forecastContainer[i + 2].append(wind);
-            forecastContainer[i + 2].append(humidity);
+            forecastContainer.innerHTML += `
+                <div>
+                    <h3>${futureDate.toLocaleString('en-US', options)}</h3>
+                    <p>Temp: ${daysToCome[i].main.temp} F</p>
+                    <p>Wind: ${daysToCome[i].wind.speed} MPH</p>
+                    <p>Humidity: ${daysToCome[i].main.humidity} %</p>
+                </div>
+            `
         }
         temp.textContent = `Temp: ${data.list[0].main.temp} F`;
         wind.textContent = `Wind: ${data.list[0].wind.speed} MPH`;
@@ -83,7 +77,7 @@ async function getWeather(lat, lon) {
 
 // returns the next 5 days in the future and their forecasts
 function getNextFiveDays(date, data) {
-    let day = parseInt(date.toLocaleString('en-US', {day: 'numeric'}));
+    let day = parseInt(date.toLocaleString('en-US', {day: 'numeric'})) + 1;
     let condition = day + 5;
     let daysToCome = [];
     for(let i = 0; day != condition; i++) {

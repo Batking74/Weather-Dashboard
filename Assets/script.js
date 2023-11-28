@@ -59,37 +59,42 @@ async function getWeather(lat, lon) {
         for(let i = 0; i < daysToCome.length; i++) {
             const futureDate = new Date(daysToCome[i].dt_txt);
             forecastContainer.innerHTML += `
-                <div>
+            <div>
                     <h3>${futureDate.toLocaleString('en-US', options)}</h3>
                     <p>Temp: ${daysToCome[i].main.temp} F</p>
                     <p>Wind: ${daysToCome[i].wind.speed} MPH</p>
                     <p>Humidity: ${daysToCome[i].main.humidity} %</p>
-                </div>
-            `
+                    </div>
+                    `
+                }
+                temp.textContent = `Temp: ${data.list[0].main.temp} F`;
+                wind.textContent = `Wind: ${data.list[0].wind.speed} MPH`;
+                humidity.textContent = `Humidity: ${data.list[0].main.humidity}%`;
+                addButtonEventListeners();
+            } catch(err) { console.log(err) }
         }
-        temp.textContent = `Temp: ${data.list[0].main.temp} F`;
-        wind.textContent = `Wind: ${data.list[0].wind.speed} MPH`;
-        humidity.textContent = `Humidity: ${data.list[0].main.humidity}%`;
-        addButtonEventListeners();
-    } catch(err) { console.log(err) }
-}
+        
+        
+        // returns the next 5 days in the future and their forecasts
+        function getNextFiveDays(date, data) {
+            let day = parseInt(date.toLocaleString('en-US', {day: 'numeric'})) + 1;
+            let condition = day + 5;
+            let daysToCome = [];
 
-
-// returns the next 5 days in the future and their forecasts
-function getNextFiveDays(date, data) {
-    let day = parseInt(date.toLocaleString('en-US', {day: 'numeric'})) + 1;
-    let condition = day + 5;
-    let daysToCome = [];
-    for(let i = 0; day != condition; i++) {
-        if(data.list[i] != undefined) {
-            const v = parseInt(data.list[i].dt_txt.substring(8, 10));
-            if(v == day) {
-                daysToCome.push(data.list[i]);
-                day++;
-            }
-            continue;
-        }
-        i++;
+            for(let i = 0; day != condition; i++) {
+                if(data.list[i] != undefined) {
+                    let nextDay = parseInt(data.list[i].dt_txt.substring(8, 10));
+                    if(nextDay == day) {
+                        daysToCome.push(data.list[i]);
+                        day++;
+                        nextDay++;
+                    }
+                    else if(day == 31) {
+                        day = 1;
+                    }
+                    continue;
+                }
+                i++;
         day++;
     }
     return daysToCome;
